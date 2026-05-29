@@ -12,7 +12,7 @@ const VALID_PRIORITIES = ["low", "medium", "high", "critical"];
 /**
  * POST /api/tickets
  * Create a new ticket (public — no auth required)
- * AI auto-assigns category and priority
+ * AI auto-assigns category and priority.
  */
 router.post("/", async (req, res) => {
   try {

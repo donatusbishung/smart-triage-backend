@@ -18,8 +18,8 @@ const VALID_PRIORITIES = ["low", "medium", "high", "critical"];
  * Analyzes a ticket description using Gemini AI and returns
  * an auto-assigned category and priority.
  *
- * @param {string} title - The ticket subject/title
- * @param {string} description - The full ticket description
+ * @param {string} title - The ticket subject/title.
+ * @param {string} description - The full ticket description.
  * @returns {Promise<{category: string, priority: string}>}
  */
 async function analyzeTicket(title, description) {
