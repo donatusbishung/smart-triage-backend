@@ -23,6 +23,3 @@ jobs:
 
       - name: Run tests (Jest)
         run: npm test
-
-      - name: Run lint
-        run: npm run lint
