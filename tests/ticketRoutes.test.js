@@ -7,7 +7,6 @@ const Ticket = require("../models/Ticket");
 const { analyzeTicket } = require("../services/aiService");
 const jwt = require("jsonwebtoken");
 
-// Mock the AI service
 jest.mock("../services/aiService");
 
 // Mock the auth middleware to simplify testing
@@ -46,14 +45,12 @@ describe("Ticket Routes", () => {
         priority: "high",
       });
 
-      const response = await request(app)
-        .post("/api/tickets")
-        .send({
-          name: "John Doe",
-          email: "john@example.com",
-          subject: "App crashes",
-          description: "It crashes when I click save",
-        });
+      const response = await request(app).post("/api/tickets").send({
+        name: "John Doe",
+        email: "john@example.com",
+        subject: "App crashes",
+        description: "It crashes when I click save",
+      });
 
       expect(response.status).toBe(201);
       expect(response.body.ticket).toHaveProperty("category", "Technical Bug");
@@ -66,14 +63,12 @@ describe("Ticket Routes", () => {
     });
 
     test("should return 400 if required fields are missing", async () => {
-      const response = await request(app)
-        .post("/api/tickets")
-        .send({
-          name: "John Doe",
-          // email missing
-          subject: "Help",
-          description: "Missing email",
-        });
+      const response = await request(app).post("/api/tickets").send({
+        name: "John Doe",
+        // email missing
+        subject: "Help",
+        description: "Missing email",
+      });
 
       expect(response.status).toBe(400);
       expect(response.body.error).toMatch(/all required/);
@@ -167,14 +162,12 @@ describe("Ticket Routes", () => {
   describe("Server Error Simulation", () => {
     test("should return 500 when Ticket.create fails", async () => {
       jest.spyOn(Ticket, "create").mockRejectedValue(new Error("Db Error"));
-      const response = await request(app)
-        .post("/api/tickets")
-        .send({
-          name: "John",
-          email: "j@e.com",
-          subject: "S",
-          description: "D",
-        });
+      const response = await request(app).post("/api/tickets").send({
+        name: "John",
+        email: "j@e.com",
+        subject: "S",
+        description: "D",
+      });
       expect(response.status).toBe(500);
       Ticket.create.mockRestore();
     });
