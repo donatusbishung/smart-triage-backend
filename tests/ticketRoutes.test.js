@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken");
 
 jest.mock("../services/aiService");
 
-// Mock the auth middleware to simplify testing
 jest.mock("../middleware/auth", () => (req, res, next) => {
   req.user = { id: "test-user-id" };
   next();
